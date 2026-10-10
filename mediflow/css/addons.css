@@ -1,0 +1,27 @@
+/* Agent add-on panels (ranking, escalations, scenarios) */
+.att-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start;margin-bottom:12px}.att-chips{display:flex;gap:6px;flex-wrap:wrap}
+.att-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.att-card{display:flex;flex-direction:column;gap:6px;padding:13px 14px;border-radius:14px;border:1px solid var(--border);border-left:5px solid #25b87a;background:var(--rowbg,rgba(255,255,255,.05));cursor:pointer;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
+.att-card:hover,.att-card:focus-visible{transform:translateY(-3px);box-shadow:0 12px 26px -12px rgba(0,0,0,.55);outline:none}
+.att-card b{color:var(--navy);font-size:14px}.att-top{display:flex;align-items:center;gap:8px}.att-rank{font:700 11px ui-monospace,Consolas,monospace;color:var(--muted)}.att-score{margin-left:auto;font:800 20px/1 ui-monospace,Consolas,monospace;color:var(--navy)}
+.att-card.lvl-critical{border-left-color:#e5484d}.att-card.lvl-high{border-left-color:#f5a524}.att-card.lvl-watch{border-left-color:#4aa3ff}
+.att-card.lvl-critical .progress span{background:#e5484d}.att-card.lvl-high .progress span{background:#f5a524}
+.score-block{margin:10px 0;padding:10px 12px;border-radius:12px;background:var(--rowbg,rgba(255,255,255,.05));border:1px solid var(--border)}.score-line{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--navy)}
+.run-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}.run-row:last-of-type{border-bottom:0}
+.mon-row{display:grid;gap:6px;margin:12px 0 4px}.mon-sw{display:flex;gap:8px;align-items:center;font-weight:600;font-size:13px;margin:0;color:var(--text)}.mon-sw input{width:auto;accent-color:#19c3b8}
+button.monPill{display:inline-flex;align-items:center;gap:7px;font:600 11px ui-monospace,Consolas,monospace;padding:7px 11px;border-radius:99px;white-space:nowrap}
+button.monPill i{width:8px;height:8px;border-radius:50%;background:#8da2b5}button.monPill.on i{background:#25e08a;box-shadow:0 0 0 0 rgba(37,224,138,.6);animation:monping 1.6s infinite}
+@keyframes monping{70%{box-shadow:0 0 0 8px rgba(37,224,138,0)}100%{box-shadow:0 0 0 0 rgba(37,224,138,0)}}
+.trace-step{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(8px);animation:trin .45s ease forwards}
+.trace-n{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#19c3b8;color:#032;font-weight:800;font-size:12px}
+@keyframes trin{to{opacity:1;transform:none}}
+@media(max-width:900px){button.monPill{display:none!important}}
+/* fix: top-right header controls overlapping (monitor pill was squeezed to 40px by .top-actions .ghost) */
+.top-actions{flex-shrink:0;flex-wrap:nowrap;min-width:0}
+.top-actions>*{flex-shrink:0}
+.top-actions .ghost.monPill{width:auto;height:40px;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;max-width:none}
+.top-actions .role-label{white-space:nowrap}
+.top-left{min-width:0;flex:1 1 auto}
+.top-left strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:1200px){.top-actions .role-label{display:none}}
+@media(max-width:1000px){.top-actions .ghost.monPill{display:none!important}}

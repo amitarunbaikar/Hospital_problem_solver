@@ -1,0 +1,89 @@
+/* Agent add-ons: ED wait data, migrations, diagnose(), insights(), escalations */
+/* ================= SANJEEVANI AGENT ADD-ONS ================= */
+const LLM_MODEL="claude-sonnet-5-5";let llmKey="";
+const RANKP={Low:1,Medium:2,High:3,Critical:4};
+const ED_SEED=[["2026-11-02","08:00",27],["2026-11-02","09:00",35],["2026-11-02","10:00",44],["2026-11-02","11:00",30],["2026-11-02","12:00",29],["2026-11-02","13:00",39],["2026-11-02","14:00",43],["2026-11-02","15:00",33],["2026-11-02","16:00",34],["2026-11-02","17:00",44],["2026-11-02","18:00",25],["2026-11-02","19:00",27],["2026-11-02","20:00",25],["2026-11-03","08:00",36],["2026-11-03","09:00",38],["2026-11-03","10:00",34],["2026-11-03","11:00",28],["2026-11-03","12:00",37],["2026-11-03","13:00",29],["2026-11-03","14:00",42],["2026-11-03","15:00",33],["2026-11-03","16:00",31],["2026-11-03","17:00",30],["2026-11-03","18:00",32],["2026-11-03","19:00",30],["2026-11-03","20:00",38],["2026-11-04","08:00",27],["2026-11-04","09:00",40],["2026-11-04","10:00",27],["2026-11-04","11:00",36],["2026-11-04","12:00",37],["2026-11-04","13:00",34],["2026-11-04","14:00",38],["2026-11-04","15:00",29],["2026-11-04","16:00",26],["2026-11-04","17:00",42],["2026-11-04","18:00",32],["2026-11-04","19:00",39],["2026-11-04","20:00",43],["2026-11-05","08:00",31],["2026-11-05","09:00",30],["2026-11-05","10:00",32],["2026-11-05","11:00",35],["2026-11-05","12:00",41],["2026-11-05","13:00",42],["2026-11-05","14:00",35],["2026-11-05","15:00",38],["2026-11-05","16:00",42],["2026-11-05","17:00",33],["2026-11-05","18:00",34],["2026-11-05","19:00",28],["2026-11-05","20:00",30],["2026-11-06","08:00",43],["2026-11-06","09:00",27],["2026-11-06","10:00",38],["2026-11-06","11:00",39],["2026-11-06","12:00",32],["2026-11-06","13:00",38],["2026-11-06","14:00",37],["2026-11-06","15:00",26],["2026-11-06","16:00",30],["2026-11-06","17:00",26],["2026-11-06","18:00",34],["2026-11-06","19:00",31],["2026-11-06","20:00",32],["2026-11-07","08:00",44],["2026-11-07","09:00",33],["2026-11-07","10:00",41],["2026-11-07","11:00",37],["2026-11-07","12:00",42],["2026-11-07","13:00",41],["2026-11-07","14:00",41],["2026-11-07","15:00",43],["2026-11-07","16:00",32],["2026-11-07","17:00",38],["2026-11-07","18:00",43],["2026-11-07","19:00",42],["2026-11-07","20:00",43],["2026-11-08","08:00",40],["2026-11-08","09:00",32],["2026-11-08","10:00",43],["2026-11-08","11:00",30],["2026-11-08","12:00",38],["2026-11-08","13:00",37],["2026-11-08","14:00",31],["2026-11-08","15:00",37],["2026-11-08","16:00",33],["2026-11-08","17:00",37],["2026-11-08","18:00",31],["2026-11-08","19:00",39],["2026-11-08","20:00",25],["2026-11-09","08:00",26],["2026-11-09","09:00",42],["2026-11-09","10:00",28],["2026-11-09","11:00",26],["2026-11-09","12:00",36],["2026-11-09","13:00",40],["2026-11-09","14:00",38],["2026-11-09","15:00",42],["2026-11-09","16:00",36],["2026-11-09","17:00",39],["2026-11-09","18:00",32],["2026-11-09","19:00",37],["2026-11-09","20:00",27],["2026-11-10","08:00",28],["2026-11-10","09:00",27],["2026-11-10","10:00",26],["2026-11-10","11:00",30],["2026-11-10","12:00",26],["2026-11-10","13:00",41],["2026-11-10","14:00",29],["2026-11-10","15:00",39],["2026-11-10","16:00",40],["2026-11-10","17:00",42],["2026-11-10","18:00",36],["2026-11-10","19:00",36],["2026-11-10","20:00",34],["2026-11-11","08:00",31],["2026-11-11","09:00",32],["2026-11-11","10:00",27],["2026-11-11","11:00",35],["2026-11-11","12:00",33],["2026-11-11","13:00",39],["2026-11-11","14:00",26],["2026-11-11","15:00",37],["2026-11-11","16:00",42],["2026-11-11","17:00",30],["2026-11-11","18:00",31],["2026-11-11","19:00",26],["2026-11-11","20:00",33],["2026-11-12","08:00",33],["2026-11-12","09:00",27],["2026-11-12","10:00",34],["2026-11-12","11:00",27],["2026-11-12","12:00",42],["2026-11-12","13:00",29],["2026-11-12","14:00",44],["2026-11-12","15:00",39],["2026-11-12","16:00",32],["2026-11-12","17:00",31],["2026-11-12","18:00",37],["2026-11-12","19:00",30],["2026-11-12","20:00",34],["2026-11-13","08:00",40],["2026-11-13","09:00",33],["2026-11-13","10:00",28],["2026-11-13","11:00",34],["2026-11-13","12:00",35],["2026-11-13","13:00",31],["2026-11-13","14:00",27],["2026-11-13","15:00",32],["2026-11-13","16:00",32],["2026-11-13","17:00",41],["2026-11-13","18:00",25],["2026-11-13","19:00",38],["2026-11-13","20:00",42],["2026-11-14","08:00",30],["2026-11-14","09:00",40],["2026-11-14","10:00",38],["2026-11-14","11:00",29],["2026-11-14","12:00",39],["2026-11-14","13:00",37],["2026-11-14","14:00",44],["2026-11-14","15:00",30],["2026-11-14","16:00",36],["2026-11-14","17:00",40],["2026-11-14","18:00",28],["2026-11-14","19:00",34],["2026-11-14","20:00",37],["2026-11-15","08:00",37],["2026-11-15","09:00",40],["2026-11-15","10:00",31],["2026-11-15","11:00",40],["2026-11-15","12:00",43],["2026-11-15","13:00",26],["2026-11-15","14:00",41],["2026-11-15","15:00",39],["2026-11-15","16:00",30],["2026-11-15","17:00",39],["2026-11-15","18:00",33],["2026-11-15","19:00",28],["2026-11-15","20:00",39],["2026-11-16","08:00",98],["2026-11-16","09:00",82]];
+function syncED(){const h=[...(db.edHistory||[])].filter(r=>n(r.waitMin)>0).sort((a,b)=>(a.date+" "+a.hour).localeCompare(b.date+" "+b.hour));if(!h.length)return;db.ed??={waitMin:28,baselineMin:25,boarding:3};db.ed.waitMin=Math.round(n(h[h.length-1].waitMin));db.ed.baselineMin=Math.max(1,Math.round(h.reduce((t,r)=>t+n(r.waitMin),0)/h.length))}
+function ensureAddons(){
+ if(!db.beds)return;
+ db.ed??={waitMin:28,baselineMin:25,boarding:3};
+ if(!db.edHistory){db.edHistory=ED_SEED.map((r,i)=>({id:"EDW-"+String(i+1).padStart(3,"0"),date:r[0],hour:r[1],waitMin:r[2]}));syncED()}
+ db.money??={bedDay:6000,admission:28000};db.escalations??=[];db.agentRuns??=[];db.scenarioSnap??=null;db.scenarioName??=null;
+ db.monitor??={on:true,live:false,last:null,known:null};
+ const ns={"DOC-101":2,"DOC-102":4,"DOC-103":1};
+ (db.doctors||[]).forEach(d=>{d.noShows??=ns[d.id]||0});
+}
+function parseHours(str){const m=String(str||"").match(/(\d+(?:\.\d+)?)\s*(hour|hr|h|minute|min|m)\b/i);if(!m)return/tomorrow/i.test(str||"")?24:2;const v=parseFloat(m[1]);return /^(m|min|minute)/i.test(m[2])?+(v/60).toFixed(2):v}
+function fmtH(h){return h<1?Math.round(h*60)+" min":(Math.round(h*10)/10)+"h"}
+function metaFor(x,b){
+ const t=x.issue;
+ if(/Blocked beds and pending/.test(t))return{owner:"Discharge Coordination Lead (Meera N.)",via:"Bed Management Lead (Kavya S.)",affected:n(b.waiting),slaMin:45};
+ if(/Laboratory delays/.test(t))return{owner:"Laboratory Supervisor (Vikram P.)",via:"Diagnostics duty manager",affected:delayedLabs()+pendingDischarges(),slaMin:45};
+ if(/Staffing below/.test(t))return{owner:"Shift Manager (Sana M.)",via:"Roster Lead",affected:shortages()*3,slaMin:60};
+ if(/Doctor availability/.test(t))return{owner:"Clinic Operations Manager",via:"Appointments desk",affected:db.doctors.reduce((s,d)=>s+n(d.waiting),0),slaMin:60};
+ if(/Regular beds exhausted/.test(t))return{owner:"On-duty Emergency Lead",via:"Bed Management Lead (Kavya S.)",affected:n(b.waiting)+n(b.emergency),slaMin:15};
+ if(/Low available bed/.test(t))return{owner:"Bed Management Lead (Kavya S.)",via:"Discharge Coordination",affected:n(b.waiting),slaMin:30};
+ return{owner:"Department Head",via:"Operations desk",affected:5,slaMin:120};
+}
+function diagnose(){
+ const b=db.beds,docs=db.discharges.filter(d=>d.documents==="Pending"),cleared=docs.filter(d=>d.medical==="Cleared by clinician"),delayed=delayedLabs();
+ const short=db.staff.filter(s=>n(s.shortage)>0).sort((x,y)=>n(y.shortage)-n(x.shortage));
+ const parts=[],steps=[];
+ if(b.blocked>0&&docs.length){parts.push(`${b.blocked} beds are blocked and ${docs.length} discharge case(s) are waiting on paperwork (${cleared.length} already clinician-cleared)`);steps.push("clear the pending discharge tasks")}
+ if(delayed>0){parts.push(`${delayed} lab report(s) are late, holding up discharge and treatment decisions`);steps.push("escalate the late lab reports")}
+ if(short.length){parts.push(`${short[0].department} (${short[0].shift}) is ${short[0].shortage} short of required staff`);steps.push("warn the shift manager about staffing")}
+ const text=parts.length?`The problem isn't simply too many patients. ${parts.join("; ")}. Stuck discharges and late reports are eating bed capacity. Suggested: ${steps.join(", ")}.`:"No linked bottleneck detected in current records; continue routine monitoring.";
+ return{parts,steps,text};
+}
+function insights(){
+ ensureAddons();
+ const b=db.beds;let a=insightsBase().filter(x=>x.issue!=="No rule-based bottleneck detected");
+ const ed=db.ed,D=diagnose();
+ // 1 ED wait jump
+ if(ed.waitMin>=Math.max(45,ed.baselineMin*1.6)){const ratio=ed.waitMin/Math.max(1,ed.baselineMin);
+  a.push({priority:(ed.waitMin>=90||ratio>=3)?"Critical":"High",issue:"Emergency department wait time has jumped",departments:"Emergency + Bed Management + Discharge Coordination + Diagnostics and Laboratories + Staff and Rosters",
+  data:`ED wait ${ed.waitMin} min vs ${ed.baselineMin} min baseline (+${Math.round((ratio-1)*100)}%); ${ed.boarding} ED patients boarding for an inpatient bed; ${b.blocked} blocked beds; ${pendingDischarges()} discharges not finally approved; ${delayedLabs()} delayed lab tests`,
+  cause:D.text,action:"Clear clinician-cleared discharge paperwork, escalate late lab reports, and warn the shift manager about staffing; keep the emergency lead informed.",
+  owner:"On-duty Emergency Lead",via:"Bed Management Lead (Kavya S.)",affected:n(ed.boarding)+n(b.emergency)+Math.round(n(b.waiting)/2),slaMin:15});}
+ // 2 long waits
+ const longW=db.doctors.filter(d=>n(d.avgWait)>=45);
+ if(longW.length){const unav=longW.filter(d=>d.status!=="Available");
+  a.push({priority:longW.some(d=>n(d.avgWait)>=60)?"High":"Medium",issue:"Departments with unusually long waits",departments:"Appointments and Doctors",
+  data:longW.map(d=>`${d.department}: ${d.name} ${d.avgWait} min avg wait, ${d.waiting} waiting`).join("; "),
+  cause:unav.length?`${unav.map(d=>`${d.name} is ${String(d.status).toLowerCase()} with ${d.waiting} patients waiting`).join("; ")}; other doctors may hold spare capacity.`:"Queues are long relative to booked capacity; check whether slots are being lost to cancellations or no-shows.",
+  action:"Redistribute routine waiting patients to suitable available doctors and update patients on expected waits.",owner:"Clinic Operations Manager",via:"Appointments desk",affected:longW.reduce((s,d)=>s+n(d.waiting),0),slaMin:60});}
+ // 3 overloaded next to spare
+ const ovl=[];[...new Set(db.doctors.map(d=>d.department))].forEach(dep=>{const ds=db.doctors.filter(d=>d.department===dep);const hi=ds.filter(d=>workloadPct(d)>=75).sort((x,y)=>workloadPct(y)-workloadPct(x))[0];const lo=ds.filter(d=>d.status==="Available"&&n(d.slots)>0&&workloadPct(d)<=40).sort((x,y)=>workloadPct(x)-workloadPct(y))[0];if(hi&&lo&&hi.id!==lo.id)ovl.push({dep,hi,lo})});
+ if(ovl.length)a.push({priority:"Medium",issue:"Overloaded doctor next to spare capacity",departments:"Appointments and Doctors",data:ovl.map(o=>`${o.dep}: ${o.hi.name} at ${workloadPct(o.hi)}% (${doctorWorkload(o.hi)}/${o.hi.capacity}) while ${o.lo.name} is at ${workloadPct(o.lo)}% with ${o.lo.slots} slots`).join("; "),cause:"Routine bookings are concentrating on one clinician although a colleague in the same department has room.",action:"Direct new routine/follow-up bookings to the lower-loaded doctor (the booking form already suggests them); do not move confirmed appointments without patient notice.",owner:"Clinic Operations Manager",via:"Appointments desk",affected:ovl.reduce((s,o)=>s+n(o.hi.waiting),0),slaMin:90});
+ // 4 cancellations / no-shows
+ const loss=db.doctors.map(d=>({d,lost:n(d.cancelled)+n(d.noShows),rate:(n(d.cancelled)+n(d.noShows))/Math.max(1,n(d.bookedToday)+n(d.cancelled)+n(d.noShows))}));
+ const totalLost=loss.reduce((s,x)=>s+x.lost,0),bad=loss.filter(x=>x.rate>=.2);
+ if(bad.length||totalLost>=6)a.push({priority:bad.some(x=>x.rate>=.3)?"High":"Medium",issue:"Cancellations and no-shows are wasting slots",departments:"Appointments and Doctors",data:`${totalLost} slots lost today (cancelled + no-show). `+(bad.length?bad.map(x=>`${x.d.name}: ${Math.round(x.rate*100)}% lost (${x.d.cancelled} cancelled, ${x.d.noShows} no-show)`).join("; "):"No single doctor above 20%."),cause:"Empty slots appear while other patients wait; lost slots reduce effective capacity.",action:"Send reminders, back-fill freed slots from the waiting list, and review overbooking limits for the affected doctors.",owner:"Appointments Desk Lead",via:"Clinic Operations Manager",affected:totalLost+bad.reduce((s,x)=>s+n(x.d.waiting),0),slaMin:120});
+ // 5 idle / wrong-ward beds
+ const W=(db.wards||[]).map(w=>({name:w.name,free:Math.max(0,n(w.total)-n(w.occupied)-n(w.blocked)-n(w.cleaning)),load:(n(w.occupied)+n(w.blocked)+n(w.cleaning))/Math.max(1,n(w.total))}));
+ const pressured=W.filter(w=>w.load>=.8),idle=W.filter(w=>w.free>=6&&w.load<.8);
+ if(n(b.waiting)>0&&pressured.length&&idle.length)a.push({priority:pressured.some(w=>/ICU|Emergency/.test(w.name))?"High":"Medium",issue:"Free beds are in the wrong ward",departments:"Bed Management",data:`${idle.map(w=>`${w.name} ${w.free} free`).join(", ")} while ${pressured.map(w=>`${w.name} is ${Math.round(w.load*100)}% loaded`).join(", ")}; ${b.waiting} patients waiting`,cause:"Capacity exists but not where demand is; free beds in other wards cannot automatically take ICU/emergency patients.",action:"Bed Management to review safe cross-ward placement for suitable non-specialist patients with clinical approval, and re-balance transfers between wards.",owner:"Bed Management Lead (Kavya S.)",via:"Nursing and Ward Management",affected:n(b.waiting),slaMin:45});
+ else if(n(b.waiting)>0&&idle.reduce((s,w)=>s+w.free,0)>=10)a.push({priority:"Medium",issue:"Idle beds while patients wait",departments:"Bed Management",data:`${idle.map(w=>`${w.name} ${w.free} free`).join(", ")}; ${b.waiting} patients waiting`,cause:"Beds sit idle while demand is unmet — likely a placement or readiness gap.",action:"Verify readiness of idle beds and assign suitable waiting patients through authorised staff.",owner:"Bed Management Lead (Kavya S.)",via:"Nursing and Ward Management",affected:n(b.waiting),slaMin:60});
+ // 6 stock
+ const lowM=(db.medicines||[]).filter(m=>m.qty<m.min),lowS=(db.supplies||[]).filter(x=>x.qty<x.min),lowO=(db.oxygen||[]).filter(x=>x.qty<x.min||x.equipment!=="Ready");
+ if(lowM.length+lowS.length+lowO.length)a.push({priority:lowO.length?"High":"Medium",issue:"Stock or oxygen readiness below minimum",departments:"Pharmacy and Inventory",data:[...lowM.map(m=>`${m.name} ${m.qty}/${m.min}`),...lowS.map(m=>`${m.name} ${m.qty}/${m.min}`),...lowO.map(o=>`Oxygen ${o.location} ${o.qty}/${o.min} (${o.equipment})`)].join("; "),cause:"Low stock can delay treatment and discharge medication supply.",action:"Raise replenishment orders and confirm oxygen readiness with the responsible store lead.",owner:"Pharmacy & Stores Lead",via:"Oxygen and Medical Supplies",affected:(lowM.length+lowS.length)*3+lowO.length*6,slaMin:lowO.length?30:180});
+ // 7 complaints that trace to ops problems
+ const links=[];db.complaints.filter(c=>c.status!=="Resolved").forEach(c=>{const hit=a.find(i=>i.priority!=="Low"&&(i.departments.includes(c.department)||(/wait/i.test(c.category+c.description)&&/wait|Emergency|doctor/i.test(i.issue))||(/discharge|report/i.test(c.description)&&/discharge|laborator/i.test(i.issue))));if(hit)links.push({c,hit})});
+ if(links.length)a.push({priority:links.some(l=>["High","Critical"].includes(l.c.priority))?"High":"Medium",issue:"Complaints trace back to an operational problem",departments:"Complaints and Feedback",data:links.map(l=>`${l.c.id} (${l.c.category}) ← ${l.hit.issue}`).join("; "),cause:"These complaints are symptoms of the linked operational issues above, not separate service failures.",action:"Fix the underlying issue first, then send affected families a status update and close the linked complaints.",owner:"Patient Experience Lead",via:"Complaints and Feedback",affected:links.length*3,slaMin:120});
+ // decorate + rank
+ const URG={Critical:95,High:75,Medium:50,Low:20};
+ a.forEach(x=>{const m=metaFor(x,b);x.owner??=m.owner;x.via??=m.via;x.affected??=m.affected;x.slaMin??=m.slaMin;x.key=x.issue;x.urgency=URG[x.priority]||20;x.impact=Math.min(100,Math.round(n(x.affected)*2.5));x.score=Math.round(x.urgency*.65+x.impact*.35)});
+ a.sort((x,y)=>y.score-x.score);
+ if(!a.length)a.push({priority:"Low",issue:"No rule-based bottleneck detected",departments:"All departments",data:"Current entered demo data does not meet configured alert rules.",cause:"This does not prove that there are no operational issues.",action:"Continue routine monitoring and keep department information current.",key:"none",score:0,urgency:20,impact:0,affected:0,owner:"—",via:"—",slaMin:0});
+ return a;
+}
+function autoActions(){autoActionsBase();syncEscalations()}
+function syncEscalations(){
+ ensureAddons();
+ const ins=insights().filter(x=>x.priority==="High"||x.priority==="Critical"),keys=new Set(ins.map(x=>x.key));
+ ins.forEach(x=>{const ex=db.escalations.find(e=>e.key===x.key&&(e.status==="Open"||e.status==="Acknowledged"));
+  if(!ex){db.escalations.unshift({id:id("ESC"),key:x.key,issue:x.issue,priority:x.priority,to:x.owner,via:x.via,up:x.priority==="Critical"?"Medical Superintendent":"",slaMin:x.slaMin,status:"Open",created:now(),score:x.score,note:x.action});logEvent(`Escalated to ${x.owner}: ${x.issue}`,"Escalation",x.priority)}
+  else{ex.priority=x.priority;ex.score=x.score;if(x.priority==="Critical"&&!ex.up)ex.up="Medical Superintendent"}});
+ db.escalations.forEach(e=>{if(!keys.has(e.key)&&(e.status==="Open"||e.status==="Acknowledged")){e.status="Auto-cleared";e.closed=now()}});
+ db.escalations=db.escalations.slice(0,60);
+}

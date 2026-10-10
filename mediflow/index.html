@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanjeevani Hospital AI | The Blocked Bed</title>
+<link rel="stylesheet" href="css/base.css">
+<script src="js/theme-init.js"></script>
+<link rel="stylesheet" id="liquid-glass" href="css/liquid-glass.css">
+<link rel="stylesheet" id="liquid-glass-buttons" href="css/liquid-glass-buttons.css">
+<link rel="stylesheet" id="boot-css" href="css/boot.css">
+<link rel="stylesheet" id="pgload-css" href="css/page-loader.css">
+<link rel="stylesheet" id="addons-css" href="css/addons.css">
+<link rel="stylesheet" id="auth-css" href="css/auth.css">
+<link rel="stylesheet" id="imp-css" href="css/import.css">
+</head>
+<body>
+<div id="boot" role="status" aria-live="polite" aria-label="Loading Sanjeevani Hospital AI">
+<div class="panel t"></div><div class="panel b"></div>
+<div class="grid"></div><div class="crosses" id="bootCrosses"></div>
+<span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+<span class="tag l">Patient data · encrypted</span><span class="tag r">Demo environment</span>
+<div class="center">
+ <div class="emblem">
+  <svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="70" fill="none" stroke="rgba(25,195,184,.15)" stroke-width="2"/>
+   <g class="ring1"><circle cx="75" cy="75" r="70" fill="none" stroke="#19e3d3" stroke-width="3" stroke-dasharray="60 380" stroke-linecap="round"/></g>
+   <g class="ring2"><circle cx="75" cy="75" r="58" fill="none" stroke="#5ff5e8" stroke-width="2" stroke-dasharray="4 10" opacity=".7"/></g></svg>
+  <span class="pulse"></span><span class="pulse p2"></span><div class="cross"></div>
+ </div>
+ <h1 id="bootTitle" aria-label="Sanjeevani"></h1>
+ <p class="sub">Hospital AI · Command Centre</p>
+ <div class="ecg"><span class="bpm">♥ <b id="bootBpm">72</b> BPM</span>
+  <svg viewBox="0 0 520 70" preserveAspectRatio="none"><path class="base" d="M0 40H150l10-6 8 6h20l8-34 12 62 10-34h22l10-8 10 8H520"/><path class="live" d="M0 40H150l10-6 8 6h20l8-34 12 62 10-34h22l10-8 10 8H520"/></svg></div>
+ <div class="bar"><div class="track"><div class="fill" id="bootFill"></div></div>
+  <div class="meta"><span id="bootMsg">Initialising</span><span id="bootPct">0%</span></div></div>
+</div>
+</div>
+<script src="js/ui/boot-screen.js"></script>
+
+<div id="app"></div><div class="toast-area" id="toastArea"></div>
+
+<!-- Core -->
+<script src="js/core/config.js"></script>
+<script src="js/core/utils.js"></script>
+<script src="js/data/seed.js"></script>
+<script src="js/core/state.js"></script>
+<!-- Logic -->
+<script src="js/logic/rules-engine.js"></script>
+<!-- UI + pages -->
+<script src="js/ui/layout.js"></script>
+<script src="js/pages/hospital-pages.js"></script>
+<script src="js/pages/ai-reviews-updates.js"></script>
+<script src="js/pages/inventory-reports.js"></script>
+<script src="js/ui/events.js"></script>
+<!-- Agent -->
+<script src="js/agent/insights.js"></script>
+<script src="js/agent/ranking.js"></script>
+<script src="js/agent/scenarios.js"></script>
+<script src="js/agent/agent-cycle.js"></script>
+<script src="js/agent/monitor.js"></script>
+<script src="js/agent/panels.js"></script>
+<script src="js/agent/agent-events.js"></script>
+<!-- Auth -->
+<script src="js/auth/auth-core.js"></script>
+<script src="js/auth/login-ui.js"></script>
+<script src="js/auth/accounts-page.js"></script>
+<!-- Dataset import -->
+<script src="js/import/import-config.js"></script>
+<script src="js/import/import-engine.js"></script>
+<script src="js/import/import-ui.js"></script>
+<!-- Start -->
+<script src="js/main.js"></script>
+<!-- Look & feel -->
+<script src="js/ui/theme-and-motion.js"></script>
+<script src="js/ui/glass-glow.js"></script>
+<script src="js/ui/page-loader.js"></script>
+</body>
+</html>

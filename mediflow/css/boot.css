@@ -1,0 +1,52 @@
+/* Boot / splash screen */
+#boot{position:fixed;inset:0;z-index:1000;overflow:hidden;color:#d9f5f2;font-family:ui-monospace,SFMono-Regular,Consolas,"Courier New",monospace;background:#03080f}
+#boot .panel{position:absolute;left:0;right:0;height:50.2%;background:radial-gradient(120% 140% at 50% 50%,#08202c 0%,#050e18 55%,#03080f 100%);transition:transform .9s cubic-bezier(.77,0,.18,1) .15s;z-index:1}
+#boot .panel.t{top:0}#boot .panel.b{bottom:0}
+#boot.done .panel.t{transform:translateY(-101%)}#boot.done .panel.b{transform:translateY(101%)}
+#boot .grid{position:absolute;inset:0;z-index:2;opacity:.5;background-image:linear-gradient(rgba(25,195,184,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(25,195,184,.07) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 0,transparent 70%);mask-image:radial-gradient(circle at 50% 50%,#000 0,transparent 70%);animation:bgrid 6s linear infinite}
+@keyframes bgrid{to{background-position:44px 44px}}
+#boot .crosses{position:absolute;inset:0;z-index:2;pointer-events:none}
+#boot .crosses i{position:absolute;bottom:-30px;font-style:normal;color:rgba(25,227,211,.22);font-weight:800;animation:bup linear infinite}
+@keyframes bup{to{transform:translateY(-115vh) rotate(180deg);opacity:0}}
+#boot .center{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:20px;transition:opacity .35s,transform .5s}
+#boot.done .center,#boot.done .corner{opacity:0;transform:scale(1.06)}
+#boot .emblem{position:relative;width:150px;height:150px;display:grid;place-items:center}
+#boot .emblem svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#boot .ring1{transform-origin:75px 75px;animation:bspin 6s linear infinite}
+#boot .ring2{transform-origin:75px 75px;animation:bspin 3.2s linear infinite reverse}
+@keyframes bspin{to{transform:rotate(360deg)}}
+#boot .pulse{position:absolute;width:96px;height:96px;border-radius:50%;border:2px solid #19e3d3;opacity:0;animation:bpulse 1.5s ease-out infinite}
+#boot .pulse.p2{animation-delay:.75s}
+@keyframes bpulse{0%{transform:scale(.6);opacity:.7}100%{transform:scale(1.7);opacity:0}}
+#boot .cross{position:relative;width:54px;height:54px;animation:bbeat 1.5s ease-in-out infinite;filter:drop-shadow(0 0 14px rgba(25,227,211,.75))}
+#boot .cross:before,#boot .cross:after{content:"";position:absolute;background:linear-gradient(180deg,#5ff5e8,#12b5aa);border-radius:5px}
+#boot .cross:before{left:19px;top:0;width:16px;height:54px}#boot .cross:after{top:19px;left:0;height:16px;width:54px}
+@keyframes bbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.18)}24%{transform:scale(.96)}36%{transform:scale(1.1)}55%{transform:scale(1)}}
+#boot h1{margin:0;font:800 clamp(26px,6.5vw,46px)/1 Inter,Segoe UI,Arial,sans-serif;letter-spacing:.32em;padding-left:.32em;color:#f1f7fb;display:flex}
+#boot h1 span{display:inline-block;opacity:0;transform:translateY(18px);filter:blur(6px);animation:bletter .6s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes bletter{to{opacity:1;transform:none;filter:none}}
+#boot .sub{margin:-8px 0 0;font-size:11px;letter-spacing:.5em;padding-left:.5em;color:#19c3b8;text-transform:uppercase;opacity:0;animation:bfade .8s 1s forwards}
+@keyframes bfade{to{opacity:1}}
+#boot .ecg{width:min(520px,86vw);height:70px;position:relative}
+#boot .ecg svg{width:100%;height:100%;overflow:visible}
+#boot .ecg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+#boot .ecg .base{stroke:rgba(25,195,184,.18);stroke-width:2}
+#boot .ecg .live{stroke:#19e3d3;stroke-width:2.5;stroke-dasharray:1000;stroke-dashoffset:1000;animation:becg 2.2s linear infinite;filter:drop-shadow(0 0 6px #19e3d3)}
+@keyframes becg{0%{stroke-dashoffset:1000}60%{stroke-dashoffset:0}100%{stroke-dashoffset:-1000}}
+#boot .bpm{position:absolute;right:0;top:-6px;font-size:11px;color:#8da2b5;letter-spacing:.15em}
+#boot .bpm b{color:#19e3d3;font-size:14px}
+#boot .bar{width:min(520px,86vw);display:grid;gap:9px}
+#boot .track{height:10px;border:2px solid rgba(25,227,211,.55);padding:1px;border-radius:2px;background:rgba(0,0,0,.35)}
+#boot .fill{height:100%;width:0;background:repeating-linear-gradient(90deg,#19e3d3 0 8px,#0f9f9a 8px 10px);box-shadow:0 0 14px rgba(25,227,211,.6)}
+#boot .meta{display:flex;justify-content:space-between;gap:12px;font-size:12px;letter-spacing:.08em;color:#8da2b5}
+#boot .meta #bootMsg{color:#cfeff0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#boot .meta #bootMsg:after{content:"_";animation:bblink .8s steps(1) infinite;color:#19e3d3}
+@keyframes bblink{50%{opacity:0}}
+#boot .meta #bootPct{color:#19e3d3;font-weight:700;min-width:4ch;text-align:right}
+#boot .corner{position:absolute;z-index:3;width:34px;height:34px;border:0 solid #19e3d3;opacity:.75;transition:opacity .35s}
+#boot .corner.tl{top:18px;left:18px;border-width:3px 0 0 3px}#boot .corner.tr{top:18px;right:18px;border-width:3px 3px 0 0}
+#boot .corner.bl{bottom:18px;left:18px;border-width:0 0 3px 3px}#boot .corner.br{bottom:18px;right:18px;border-width:0 3px 3px 0}
+#boot .tag{position:absolute;z-index:3;font-size:10px;letter-spacing:.25em;color:#5d7a8d;text-transform:uppercase;transition:opacity .35s}
+#boot .tag.l{bottom:26px;left:64px}#boot .tag.r{bottom:26px;right:64px}
+#boot.done .tag{opacity:0}
+@media(max-width:600px){#boot .tag{display:none}#boot .emblem{transform:scale(.85)}}

@@ -1,0 +1,8 @@
+/* Sign in / sign up / account page styles */
+.top-actions .avatar{cursor:pointer}
+.auth-tabs{display:flex;gap:6px;margin:0 0 16px;background:rgba(255,255,255,.06);padding:4px;border-radius:12px}
+.auth-tabs button{flex:1;background:transparent;color:#a9bccb;padding:8px;box-shadow:none}.auth-tabs button.on{background:var(--teal);color:#fff}
+.auth-msg{min-height:20px;font-size:13px;margin:10px 0 0;color:#ff9a9a}.auth-msg.ok{color:#5eead4}
+.auth-note{font-size:12px;color:#9fb3c4;margin-top:10px;line-height:1.5}
+.cred-box{font:600 14px/1.7 ui-monospace,Consolas,monospace;padding:12px;border-radius:10px;border:1px dashed var(--teal);margin:8px 0;word-break:break-all}
+.acct-actions{display:flex;gap:5px;flex-wrap:wrap}
